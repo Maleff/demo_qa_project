@@ -1,6 +1,7 @@
 package guru.qa;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -22,12 +23,23 @@ public class TestPracticeForm {
     void fillFormatTest() {
         String name = "Maleff";
         String lastName = "Kuznja";
+        String month = "May";
+        String day = "8";
+        String year = "1995";
+        String fullBirthDay = month + " " + day + "th, " + year;
 
         open("/automation-practice-form");
-        $("[id=firstName]").setValue(name);
-        $("[id=lastName]").setValue(lastName);
-        $("[id=userEmail]").setValue("maleff@gmail.com");
-        $("[id=userNumber]").setValue("89001239087");
+        $("#firstName").setValue(name);
+        $("#lastName").setValue(lastName);
+        $("#userEmail").setValue("maleff@gmail.com");
+        $("#userNumber").setValue("89001239087");
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOption(month);
+        $(".react-datepicker__year-select").selectOption(year);
+        $("[aria-label$='" + fullBirthDay + "']").click();
+
+
+
 
 
     }
