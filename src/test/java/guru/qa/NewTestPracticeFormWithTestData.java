@@ -4,19 +4,20 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*; //Для работы с разрешением экрана
+import static com.codeborne.selenide.Selenide.*;
+import static java.lang.String.format;
 
 
-public class TestPracticeForm {
+public class NewTestPracticeFormWithTestData {
     //data
-    String name = "Maleff";
-    String lastName = "Kuznja";
-    String month = "May";
-    String day = "8";
+    String name = "Maleff",
+            lastName = "Kuznja",
+            email = "maleff@gmail.com";
+    String  fullName = format("%s %s", name, lastName),
+            month = "May",
+            day = "30";
     String year = "1995";
     String gender = "Other";
     String fullBirthDay = month + " " + day + "th, " + year; //Пример составления строки
@@ -37,16 +38,18 @@ public class TestPracticeForm {
     void fillFormatTest() {
 
         open("/automation-practice-form");
-        zoom(0.7); // Zoom out
+        executeJavaScript("$('footer').remove()"); // hide footer and banner
+        executeJavaScript("$('#fixedban').remove()");
+
         $("#firstName").setValue(name);
         $("#lastName").setValue(lastName);
-        $("#userEmail").setValue("maleff@gmail.com");
+        $("#userEmail").setValue(email);
         $("#userNumber").setValue("89001239087");
         $("#gender-radio-3").parent().click();
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").selectOption(month); //selectOption - для выбора из списка
         $(".react-datepicker__year-select").selectOption(year);
-        $("[aria-label$='" + fullBirthDay + "']").click(); //Сложное - надо разобраться в синтаксисе
+        $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
         $("#subjectsContainer").click();
         $("#subjectsInput").setValue(subject).pressEnter();
         $(byText("Music")).click();
@@ -59,5 +62,6 @@ public class TestPracticeForm {
         $(byText(city)).click();
         $("#submit").click();
 
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
     }
 }
