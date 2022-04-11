@@ -8,14 +8,16 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static java.lang.String.format;
+import static utils.RandomeUtils.getRandomEmail;
+import static utils.RandomeUtils.getRandomString;
 
 
 public class NewTestPracticeFormWithTestData {
     //data
-    String name = "Maleff",
-            lastName = "Kuznja",
-            email = "maleff@gmail.com";
-    String  fullName = format("%s %s", name, lastName),
+    String  name = getRandomString(10),
+            lastName = getRandomString(12),
+            email = getRandomEmail(),
+            fullName = format("%s %s", name, lastName),
             month = "May",
             day = "30";
     String year = "1995";
