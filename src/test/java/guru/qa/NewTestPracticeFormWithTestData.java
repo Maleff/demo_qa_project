@@ -8,8 +8,8 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static java.lang.String.format;
-import static utils.RandomeUtils.getRandomEmail;
-import static utils.RandomeUtils.getRandomString;
+import static utils.RandomUtils.getRandomEmail;
+import static utils.RandomUtils.getRandomString;
 
 
 public class NewTestPracticeFormWithTestData {
