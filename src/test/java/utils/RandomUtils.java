@@ -2,7 +2,7 @@ package utils;
 
 import java.util.Random;
 
-public class RandomeUtils {
+public class RandomUtils {
         public static String getRandomString(int length) {
             String SALTCHARS = "QWERTYUIOPASDFGHJKLZXCVBNM";
             StringBuilder result = new StringBuilder();
