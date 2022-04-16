@@ -19,14 +19,12 @@ public class NewTestPracticeFormWithFaker {
     //data
     String  firstName = faker.name().firstName(),
             lastName = faker.name().lastName(),
-            email = faker.internet().emailAddress(),
+            userEmail = faker.internet().emailAddress(),
             currentAddress = faker.address().fullAddress(),
             fullName = format("%s %s", firstName, lastName),
-            month = "May",
-            day = "30";
-    String year = "1995";
+            userNumber = "89001234590";
+
     String gender = "Other";
-    String fullBirthDay = month + " " + day + "th, " + year; //Пример составления строки
     String subject = "Bi";
     String state = "NCR";
     String city = "Gurgaon";
@@ -41,20 +39,16 @@ public class NewTestPracticeFormWithFaker {
 
     @Test
     void fillFormatTest() {
+        RegistrationFormPage registrationFormPage =
+                new RegistrationFormPage();
+        registrationFormPage.openPage();
+        registrationFormPage.setFirstName(firstName);
+        registrationFormPage.setLastName(lastName);
+        registrationFormPage.setUserEmail(userEmail);
+        registrationFormPage.setUserNumber(userNumber);
 
-        open("/automation-practice-form");
-        executeJavaScript("$('footer').remove()"); // hide footer and banner
-        executeJavaScript("$('#fixedban').remove()");
-
-        $("#firstName").setValue(firstName);
-        $("#lastName").setValue(lastName);
-        $("#userEmail").setValue(email);
-        $("#userNumber").setValue("89001239087");
         $("#gender-radio-3").parent().click();
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption(month); //selectOption - для выбора из списка
-        $(".react-datepicker__year-select").selectOption(year);
-        $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
+        registrationFormPage.setUserBirthDay();
         $("#subjectsContainer").click();
         $("#subjectsInput").setValue(subject).pressEnter();
         $(byText("Music")).click();
